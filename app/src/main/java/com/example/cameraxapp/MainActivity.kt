@@ -57,7 +57,12 @@ class MainActivity : AppCompatActivity() {
         viewBinding.videoCaptureButton.setOnClickListener { captureVideo() }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+        val jniText = stringFromJNI()
+        Log.d("AlejandroGomez", jniText)
     }
+
+    external fun stringFromJNI(): String
 
     private fun takePhoto() {}
 
@@ -114,6 +119,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        init {
+            System.loadLibrary("androidndkexample")
+        }
         private const val TAG = "CameraXApp"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
@@ -145,6 +153,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
 
 /*
